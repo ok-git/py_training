@@ -1,9 +1,11 @@
-sec = ''  # define var
+# sec = ''  # define var
 
 # waiting for digits only
-while not sec.isdigit():
-    sec = input("Input time in seconds:")
-sec = int(sec)  # change str to int
+# while not sec.isdigit():
+#     sec = input("Input time in seconds:")
+# sec = int(sec)  # change str to int
+
+sec = 3661
 
 # variant 1
 hours = sec // 3600
