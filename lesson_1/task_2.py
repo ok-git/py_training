@@ -1,7 +1,7 @@
 # number = ''  # define var
 
 # waiting for digits only
-# while not sec.isdigit():
+# while not number.isdigit():
 #     number = input("Input number:")
 # number = int(number)  # change str to int
 
