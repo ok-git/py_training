@@ -25,6 +25,6 @@ seasons_dict = {(1, 2, 12): 'Зима',
                 (3, 4, 5): 'Весна',
                 (6, 7, 8): 'Лето',
                 (9, 10, 11): 'Осень'}
-for key in seasons_dict.keys():
-    if user_month in key:
-        print(f"Месяц {user_month} это {seasons_dict[key]}")
+for season in seasons_dict.keys():
+    if user_month in season:
+        print(f"Месяц {user_month} это {seasons_dict[season]}")
