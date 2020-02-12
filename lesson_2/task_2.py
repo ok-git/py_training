@@ -13,3 +13,10 @@ for idx, items in enumerate(zip(user_list[1:], user_list)):
 new_list.extend(user_list[-1]) if len(user_list) % 2 != 0 else None
 user_list = new_list
 print(user_list)
+
+# Var 2
+a = ['1', '2', '3', '4', '5', '6', '7']
+
+for idx in range(0, len(a) if len(a) % 2 == 0 else len(a)-1, 2):
+    a[idx], a[idx+1] = a[idx+1], a[idx]
+print(a)
