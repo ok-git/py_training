@@ -6,7 +6,7 @@ import random
 
 
 def my_div(numerator, denominator):
-    return numerator / denominator if denominator != 0 else None
+    return round(numerator / denominator, 2) if denominator != 0 else None
 
 
 # numerator = int(input("Введите числитель: "))
@@ -14,7 +14,7 @@ def my_div(numerator, denominator):
 numerator = random.randint(1, 10)
 denominator = random.randint(1, 10)
 
-print(f"Результат {numerator} / {denominator} = {my_div(numerator, denominator):.2f}")
+print(f"Результат {numerator} / {denominator} = {my_div(numerator, denominator)}")
 
 numerator = random.randint(1, 10)
 denominator = 0
