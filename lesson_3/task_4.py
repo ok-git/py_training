@@ -7,15 +7,19 @@
 
 def my_pow(x, y):
     res = 1
-    while y:
+    for i in range(abs(y)):
         res = res * x
-        y += 1
-    return 1/res
+    return 1/res if y < 0 else res
 
 
 # x = int(input("Enter x="))
 # y = int(input("Enter y="))
 x, y = 2, -3
+
+print(f"{x} ** {y} = {my_pow(x,y)}")
+print(f"{x} ** {y} = {pow(x,y)}")
+
+x, y = 2, 3
 
 print(f"{x} ** {y} = {my_pow(x,y)}")
 print(f"{x} ** {y} = {pow(x,y)}")
