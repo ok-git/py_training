@@ -15,6 +15,7 @@ def int_func(string):
 text_string = 'the quick brown fox jumps over the lazy dog'
 print(text_string)
 print(*list(map(int_func, text_string.split())))
+print(int_func('one'))
 
 
 # ver - 2 using *args
@@ -25,3 +26,5 @@ def int_func_v2(*args):
 text_string = 'the quick brown fox jumps over the lazy dog'
 print(text_string)
 print(int_func_v2(*text_string.split()))
+print(int_func_v2('one'))
+print(int_func_v2('one', 'two'))
