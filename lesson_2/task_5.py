@@ -30,3 +30,5 @@ if len(new_list) == old_len:  # if user_rating not found in the list then append
     new_list.append(user_rating)
 my_list = new_list[::-1]  # reverse back
 print("Новый рейтинг: ", *my_list)
+
+#  надо было сделать без sort и reverse

@@ -7,5 +7,5 @@
 
 user_input = "Пользователь вводит строку из нескольких слов разделённых пробелами"
 words = user_input.split()
-for item in enumerate(words):
-    print(*item)
+for idx, word in enumerate(words):
+    print(idx, word[:10])
