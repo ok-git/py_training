@@ -42,3 +42,10 @@ for item in items_from_task:
             my_result_dict[key] = [value]  # create key:value
 print("\nРезультирующий словарь:\n", my_result_dict, sep="")
 print("Сравнение с ответом из задания: ", answer_dict == my_result_dict)
+
+# Var - 2. form my_result_dict with analytics for the task
+my_result_dict = {}  # init my_result_dict
+for item in items_from_task:
+    for key, value in item[1].items():
+        my_result_dict.setdefault(key, []).append(value)
+print("\nРезультирующий словарь вар - 2:\n", my_result_dict, sep="")
