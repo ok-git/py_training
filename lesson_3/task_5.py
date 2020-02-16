@@ -11,7 +11,7 @@ result = 0
 exit_flag = None
 while not exit_flag:
     user_numbers = input("Введите числа разделённые пробелом (q для выхода): ").split()
-    if user_numbers[-1] == 'q':
+    if user_numbers[-1] == 'q':  # if 'q' in user_numbers
         exit_flag = user_numbers.pop()
     result = result + sum(map(int, user_numbers))
     print(f"Сумма введёных чисел: {result} ")

@@ -8,7 +8,7 @@
 
 
 def int_func(string):
-    return chr(ord(string[:1])-32)+string[1:]
+    return chr(ord(string[:1])-32)+string[1:]  # f-string needed
 
 
 # text_string = input("Введите строку: ")

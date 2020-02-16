@@ -7,6 +7,7 @@
 # ver - 1
 def my_func(num1, num2, num3):
     return sum(sorted([num1, num2, num3])[-2:])
+    # sum(args) - min (args)
 
 
 print(my_func(1, 2, 3))
