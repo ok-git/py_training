@@ -15,4 +15,3 @@ def fact(n):
 
 for el in fact(4):
     print(el)
-
