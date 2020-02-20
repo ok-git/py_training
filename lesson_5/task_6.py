@@ -17,18 +17,18 @@ def convert_digits(str_obj):
     return int(result) if result else 0
 
 
-result_dict = {}
-with open("test_6.txt", 'r', encoding='utf-8') as f_obj:
-    for line in f_obj:
-        subj, *value = line.split()
-        result_dict[subj[:-1]] = sum(list(map(convert_digits, value)))
-print(result_dict)
+if __name__ == "__main__":  # see task 7
+    result_dict = {}
+    with open("test_6.txt", 'r', encoding='utf-8') as f_obj:
+        for line in f_obj:
+            subj, *value = line.split()
+            result_dict[subj[:-1]] = sum(list(map(convert_digits, value)))
+    print(result_dict)
 
-
-# Variant 2 - short, in one line conversion
-result_dict = {}
-with open("test_6.txt", 'r', encoding='utf-8') as f_obj:
-    for line in f_obj:
-        subj, *value = line.split()
-        result_dict[subj[:-1]] = sum([int(el.split('(')[0]) for el in value if el != '—'])
-print(result_dict)
+    # Variant 2 - short, in one line conversion
+    result_dict = {}
+    with open("test_6.txt", 'r', encoding='utf-8') as f_obj:
+        for line in f_obj:
+            subj, *value = line.split()
+            result_dict[subj[:-1]] = sum([int(el.split('(')[0]) for el in value if el != '—'])
+    print(result_dict)
