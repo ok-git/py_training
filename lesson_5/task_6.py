@@ -12,8 +12,8 @@
 
 
 # Variant 1 - with function
-def convert_digits(str_line):
-    result = ''.join([el for el in str_line if el.isdigit()])
+def convert_digits(str_obj):
+    result = ''.join([el for el in str_obj if el.isdigit()])
     return int(result) if result else 0
 
 
@@ -32,4 +32,3 @@ with open("test_6.txt", 'r', encoding='utf-8') as f_obj:
         subj, *value = line.split()
         result_dict[subj[:-1]] = sum([int(el.split('(')[0]) for el in value if el != '—'])
 print(result_dict)
-
