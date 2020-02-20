@@ -6,7 +6,7 @@
 
 staff_list = []
 salary_list = []
-with open("staff.txt", 'r', encoding='utf-8') as f_obj:
+with open("test_3.txt", 'r', encoding='utf-8') as f_obj:
     for line in f_obj:
         person, salary = line.split()
         staff_list.append(person)
