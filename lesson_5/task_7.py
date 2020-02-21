@@ -13,8 +13,9 @@
 [{"firm_1": 5000, "firm_2": 3000, "firm_3": 1000}, {"average_profit": 2000}]
 """
 
+import json
 from functools import reduce
-from lesson_5.task_6 import convert_digits
+from task_6 import convert_digits
 
 company_dict = {}
 with open("test_7.txt", 'r', encoding='utf-8') as f_obj:
@@ -23,4 +24,6 @@ with open("test_7.txt", 'r', encoding='utf-8') as f_obj:
         company_dict[company] = reduce(lambda x, y: x - y, list(map(convert_digits, value[1:])))
 profit = [profit for profit in company_dict.values() if profit > 0]
 result_list = [company_dict, {'average_profit': round(sum(profit)/len(profit), 2)}]
-print(result_list)
+
+with open("test_7.json", "w", encoding='utf-8') as f_obj:
+    json.dump(result_list, f_obj, ensure_ascii=False)
