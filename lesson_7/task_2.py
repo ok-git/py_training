@@ -16,10 +16,7 @@ class Clothes(ABC):
 
     def __init__(self, title):
         self.title = title
-
-    @staticmethod
-    def update_total_material(delta):
-        Clothes.total_material += delta
+        Clothes.total_material += self.material_consumption
 
     @abstractmethod
     def material_consumption(self):
@@ -28,9 +25,8 @@ class Clothes(ABC):
 
 class Coat(Clothes):
     def __init__(self, title, size):
-        super().__init__(title)
         self.size = size
-        super().update_total_material(self.material_consumption)
+        super().__init__(title)
 
     @property
     def material_consumption(self):
@@ -39,9 +35,8 @@ class Coat(Clothes):
 
 class Suit(Clothes):
     def __init__(self, title, height):
-        super().__init__(title)
         self.height = height
-        super().update_total_material(self.material_consumption)
+        super().__init__(title)
 
     @property
     def material_consumption(self):
