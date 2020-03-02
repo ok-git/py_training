@@ -8,35 +8,91 @@
 подходящую структуру, например словарь.
 """
 
-from abc import ABC
+from abc import ABC, abstractmethod, abstractproperty
 
 
 class Warehouse:
-    def __init__(self):
-        self.total_equipment = 0
+    __locations_list = []
 
-    def set_location(self):
-        pass
+    def __init__(self):
+        self.__equipment_dict = {}  # {location, equipment_list}
+
+    @classmethod
+    def add_location(cls, *args):
+        cls.__locations_list.extend(args)
+
+    @classmethod
+    def del_location(cls, location):
+        cls.__locations_list.remove(location)
+
+    @classmethod
+    def get_locations(cls):
+        return cls.__locations_list
+
+    def add_equipment(self, equipment, location):
+        if location in self.get_locations():
+            self.__equipment_dict.setdefault(location, []).append(equipment)
+        else:
+            self.print_msg(location)
+
+    def move_equipment(self, equipment, old_location, new_location):
+        if new_location in self.get_locations():
+            self.__equipment_dict[old_location].remove(equipment)
+            self.__equipment_dict.setdefault(new_location, []).append(equipment)
+        else:
+            self.print_msg(new_location)
+
+    def del_equipment(self, equipment, location):
+        self.__equipment_dict[location].remove(equipment)
+
+    def get_equipment_list(self, location=None):
+        if not location:
+            return self.__equipment_dict
+        elif location in self.get_locations():
+            return self.__equipment_dict.setdefault(location, [])
+        else:
+            self.print_msg(location)
 
     @staticmethod
-    def __location_validation():
-        pass
+    def print_msg(text):
+        print(f'{text} на складе не существует')
 
 
 class OfficeEquipment(ABC):
+    __total_equipment = 0
+
     def __init__(self, equip_type, model, inventory_number):
         self.equip_type = equip_type
         self.model = model
         self.inventory_number = inventory_number
-        self.location = None
+        self.__update_total_equipment()
 
-    def quantity(self):
+    @classmethod
+    def __update_total_equipment(cls):
+        cls.__total_equipment += 1
+
+    @classmethod
+    def get_total_equipment(cls):
+        return cls.__total_equipment
+
+    @abstractmethod
+    def service_works(self):
         pass
+
 
 class Printer(OfficeEquipment):
     def __init__(self, equip_type, model, inventory_number, cartridge_model):
         super().__init__(equip_type, model, inventory_number)
         self.cartridge_model = cartridge_model
+
+    def service_works(self):
+        print('Регламент сервисных работ для принтеров')
+
+    def __str__(self):
+        return f'{self.equip_type}: {self.model}, {self.inventory_number}, {self.cartridge_model}'
+
+    def __repr__(self):
+        return f'{self.equip_type}: {self.model}, {self.inventory_number}, {self.cartridge_model}'
 
 
 class Scanner(OfficeEquipment):
@@ -44,8 +100,70 @@ class Scanner(OfficeEquipment):
         super().__init__(equip_type, model, inventory_number)
         self.lamp_model = lamp_model
 
+    def service_works(self):
+        print('Регламент сервисных работ для сканеров')
+
+    def __str__(self):
+        return f'{self.equip_type}: {self.model}, {self.inventory_number}, {self.lamp_model}'
+
+    def __repr__(self):
+        return f'{self.equip_type}: {self.model}, {self.inventory_number}, {self.lamp_model}'
+
 
 class Copier(OfficeEquipment):
     def __init__(self, equip_type, model, inventory_number, paper_tray_model):
         super().__init__(equip_type, model, inventory_number)
         self.paper_tray_model = paper_tray_model
+
+    def service_works(self):
+        print('Регламент сервисных работ для копиров')
+
+    def __str__(self):
+        return f'{self.equip_type}: {self.model}, {self.inventory_number}, {self.paper_tray_model}'
+
+    def __repr__(self):
+        return f'{self.equip_type}: {self.model}, {self.inventory_number}, {self.paper_tray_model}'
+
+
+wh = Warehouse()  # init warehouse object
+# setup locations
+wh.add_location('бухгалтерия', 'технический отдел', 'коммерческий отдел', 'склад')
+wh.del_location('бухгалтерия')  # del location
+print(f'\nСписок созданных локаций оборудования {wh.get_locations()}')
+print('-' * 40)
+
+# create equipment
+prn_1 = Printer('printer', 'hp', 'inv-prn-1000', 'hp-cart-1')
+prn_2 = Printer('printer', 'hp', 'inv-prn-1001', 'hp-cart-1')
+prn_3 = Printer('printer', 'epson', 'inv-prn-1002', 'eps-cart-10')
+prn_4 = Printer('printer', 'lexmark', 'inv-prn-1003', 'lx-cart-20')
+scn_1 = Scanner('сканер', 'epson', 'inv-scn-2000', 'lamp-111')
+cpr_1 = Copier('копир', 'xerox', 'inv-cpr-3000', 'xr-paper-tray-100')
+cpr_2 = Copier('копир', 'xerox', 'inv-cpr-3001', 'xr-paper-tray-100')
+
+print('Всего создано оргтехники по типам:')
+print(f'Принтеры - {Printer.get_total_equipment()} шт.')
+print(f'Сканеры - {Scanner.get_total_equipment()} шт.')
+print(f'Копиры - {Copier.get_total_equipment()} шт.')
+print('-' * 40)
+
+
+wh.add_equipment(prn_1, 'коммерческий отдел')
+wh.add_equipment(prn_2, 'коммерческий отдел')
+wh.add_equipment(prn_3, 'технический отдел')
+wh.add_equipment(prn_4, 'склад')
+wh.add_equipment(scn_1, 'технический отдел')
+wh.add_equipment(cpr_1, 'технический отдел')
+wh.add_equipment(cpr_2, 'коммерческий отдел')
+
+for key, value in wh.get_equipment_list().items():
+    print(key, value)
+
+# print(wh.get_equipment_list('technical department'))
+# print(wh.get_equipment_list('commercial department'))
+# wh.move_equipment(prn_1, 'technical department', 'commercial department')
+# print(wh.get_equipment_list('technical department'))
+# print(wh.get_equipment_list('commercial department'))
+# wh.del_equipment(prn_1, 'commercial department')
+# print(wh.get_equipment_list('technical department'))
+# print(wh.get_equipment_list('commercial department'))
