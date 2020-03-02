@@ -24,6 +24,8 @@ while user_input != 'q':
             user_list.append(int(user_input))
     except NonNumberError as err:
         print(err)
+    else:
+        print('Число успешно добавлено')
 print(user_list)
 
 # Variant - 2 with builtin exception
@@ -38,5 +40,7 @@ while user_input != 'q':
         else:
             user_list.append(int(user_input))
     except ValueError as err:
-        print(err)
+        print('Вы ввели не число')
+    else:
+        print('Число успешно добавлено')
 print(user_list)
