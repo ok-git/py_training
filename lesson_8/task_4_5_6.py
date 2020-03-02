@@ -6,9 +6,13 @@
 Разработать методы, отвечающие за приём оргтехники на склад и передачу в определенное подразделение компании.
 Для хранения данных о наименовании и количестве единиц оргтехники, а также других данных, можно использовать любую
 подходящую структуру, например словарь.
+Реализуйте механизм валидации вводимых пользователем данных. Например, для указания количества принтеров, отправленных
+на склад, нельзя использовать строковый тип данных.
+Подсказка: постарайтесь по возможности реализовать в проекте «Склад оргтехники» максимум возможностей, изученных на
+уроках по ООП.
 """
 
-from abc import ABC, abstractmethod, abstractproperty
+from abc import ABC, abstractmethod
 
 
 class Warehouse:
@@ -55,7 +59,7 @@ class Warehouse:
 
     @staticmethod
     def print_msg(text):
-        print(f'{text} на складе не существует')
+        print(f'Локации "{text}" на складе не существует')
 
 
 class OfficeEquipment(ABC):
@@ -125,12 +129,16 @@ class Copier(OfficeEquipment):
         return f'{self.equip_type}: {self.model}, {self.inventory_number}, {self.paper_tray_model}'
 
 
+def separator():
+    print('-' * 40)
+
+
 wh = Warehouse()  # init warehouse object
 # setup locations
 wh.add_location('бухгалтерия', 'технический отдел', 'коммерческий отдел', 'склад')
 wh.del_location('бухгалтерия')  # del location
 print(f'\nСписок созданных локаций оборудования {wh.get_locations()}')
-print('-' * 40)
+separator()
 
 # create equipment
 prn_1 = Printer('printer', 'hp', 'inv-prn-1000', 'hp-cart-1')
@@ -145,9 +153,14 @@ print('Всего создано оргтехники по типам:')
 print(f'Принтеры - {Printer.get_total_equipment()} шт.')
 print(f'Сканеры - {Scanner.get_total_equipment()} шт.')
 print(f'Копиры - {Copier.get_total_equipment()} шт.')
-print('-' * 40)
+separator()
 
+prn_1.service_works()
+scn_1.service_works()
+cpr_1.service_works()
+separator()
 
+# add equipment to locations
 wh.add_equipment(prn_1, 'коммерческий отдел')
 wh.add_equipment(prn_2, 'коммерческий отдел')
 wh.add_equipment(prn_3, 'технический отдел')
@@ -156,14 +169,18 @@ wh.add_equipment(scn_1, 'технический отдел')
 wh.add_equipment(cpr_1, 'технический отдел')
 wh.add_equipment(cpr_2, 'коммерческий отдел')
 
+print('Распределение техники по отделам:')
 for key, value in wh.get_equipment_list().items():
     print(key, value)
+separator()
 
-# print(wh.get_equipment_list('technical department'))
-# print(wh.get_equipment_list('commercial department'))
-# wh.move_equipment(prn_1, 'technical department', 'commercial department')
-# print(wh.get_equipment_list('technical department'))
-# print(wh.get_equipment_list('commercial department'))
-# wh.del_equipment(prn_1, 'commercial department')
-# print(wh.get_equipment_list('technical department'))
-# print(wh.get_equipment_list('commercial department'))
+# move prn_4 from old_location to new_location
+wh.move_equipment(prn_4, 'склад', 'коммерческий отдел')
+
+print('Распределение техники по отделам после перемещения:')
+for key, value in wh.get_equipment_list().items():
+    print(key, value)
+separator()
+
+# move to invalid location
+wh.move_equipment(prn_4, 'коммерческий отдел', 'бухгалтерия')
