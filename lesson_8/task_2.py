@@ -10,7 +10,7 @@ class ByZeroError(Exception):
         self.txt = txt
 
 
-# a, b = map(int, input("Введите делимое и делитель через пробел: ").split())
+# a, b = map(int, input('Введите делимое и делитель через пробел: ').split())
 
 a = 10
 b = 0
