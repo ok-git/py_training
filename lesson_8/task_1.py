@@ -13,14 +13,15 @@ class Date:
     def __str__(self):
         return self.date_string
 
-    @classmethod
-    def convert_to_int(cls, date_string):
-        day = month = year = 0
-        try:
-            day, month, year = map(int, date_string.split('-'))
-        except ValueError as err:
-            print(err)
-        return day, month, year
+    # Не использовал cls, хотя заявлен метод класса - не до конца понял задание. См. следующий метод.
+    # @classmethod
+    # def convert_to_int(cls, date_string):
+    #     day = month = year = 0
+    #     try:
+    #         day, month, year = map(int, date_string.split('-'))
+    #     except ValueError as err:
+    #         print(err)
+    #     return day, month, year
 
     @classmethod
     def create_from_int(cls, day, month, year):
@@ -47,7 +48,7 @@ print(not_valid_date)
 print(f'Дата валидна - {not_valid_date.date_validation(not_valid_date.date_string)}\n')
 
 # call class method through the class name
-print(Date.convert_to_int('20-02-2020'), '\n')
+# print(Date.convert_to_int('20-02-2020'), '\n')
 
 # create object through the class method
 my_date_2 = Date.create_from_int(21, 3, 2020)
